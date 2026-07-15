@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "redduck-blog",
+  "compatibility_date": "2026-07-10",
+  "observability": {
+    "enabled": true,
+  },
+  "main": "@tanstack/react-start/server-entry",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "d1_databases": [
+    {
+      "binding": "DB_BLOG",
+      "database_name": "redduck-blog",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "bucket_name": "redduck-blog-media",
+      "binding": "BLOG_R2",
+    },
+  ],
+}
