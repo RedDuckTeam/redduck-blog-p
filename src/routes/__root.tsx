@@ -1,38 +1,55 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
+import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router"
+import { createServerFn } from "@tanstack/react-start"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 
+import { Footer } from "@/components/layout/footer"
+import { Header } from "@/components/layout/header"
+import { NotFound } from "@/components/not-found"
+import { seo } from "@/lib/seo"
 import appCss from "../styles.css?url"
 
+const getFooterTags = createServerFn({ method: "GET" }).handler(async () => {
+  try {
+    const { listTags } = await import("@/server/posts")
+    return (await listTags()).slice(0, 6)
+  } catch {
+    return []
+  }
+})
+
 export const Route = createRootRoute({
+  loader: async () => ({ footerTags: await getFooterTags() }),
   head: () => ({
     meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        title: "TanStack Start Starter",
-      },
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      ...seo({
+        title: "Blog | RedDuck",
+        description:
+          "News, insights and press releases from RedDuck — a Web3 and blockchain development studio.",
+      }),
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
-  notFoundComponent: () => (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>404</h1>
-      <p>The requested page could not be found.</p>
-    </main>
-  ),
+  component: RootComponent,
+  notFoundComponent: () => <NotFound />,
   shellComponent: RootDocument,
 })
+
+function RootComponent() {
+  const { footerTags } = Route.useLoaderData()
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer topTags={footerTags} />
+    </>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (

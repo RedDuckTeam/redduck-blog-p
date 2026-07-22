@@ -70,5 +70,13 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
   tag: one(tags, { fields: [postTags.tagId], references: [tags.id] }),
 }));
 
+export const postViews = sqliteTable("post_views", {
+  postId: integer("post_id")
+    .primaryKey()
+    .references(() => posts.id, { onDelete: "cascade" }),
+  count: integer("count").notNull().default(0),
+});
+
 export type Post = typeof posts.$inferSelect;
 export type Tag = typeof tags.$inferSelect;
+export type PostView = typeof postViews.$inferSelect;
