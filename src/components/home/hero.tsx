@@ -2,9 +2,9 @@ import { LANDING_URL } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="flex flex-col border-b border-dark-gray lg:flex-row">
+    <section className="border-dark-gray flex flex-col border-b lg:flex-row">
       <div className="flex flex-1 flex-col">
-        <div className="flex h-[70px] items-center gap-4 border-b border-dark-gray px-5 font-body text-base md:h-[100px] md:px-[60px] md:text-[18px]">
+        <div className="border-dark-gray font-body flex h-[70px] items-center gap-4 border-b px-5 text-base md:h-[100px] md:px-[60px] md:text-[18px]">
           <a href={LANDING_URL} className="text-concrete hover:text-black">
             Home
           </a>
@@ -12,8 +12,8 @@ export function Hero() {
           <span className="text-black">Blog</span>
         </div>
 
-        <div className="flex flex-1 items-center border-b border-dark-gray px-5 py-10 md:px-[60px] md:py-[60px]">
-          <h1 className="font-mono text-[56px] font-medium uppercase leading-none text-black sm:text-[80px] xl:text-[100px] 2xl:text-[120px]">
+        <div className="border-dark-gray flex flex-1 items-center border-b px-5 py-10 md:px-[60px] md:py-[60px]">
+          <h1 className="font-mono text-[56px] leading-none font-medium text-black uppercase sm:text-[80px] xl:text-[100px] 2xl:text-[120px]">
             Blog<span className="blink-cursor text-red">_</span>
           </h1>
         </div>
@@ -26,7 +26,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative h-[220px] shrink-0 overflow-hidden border-t border-dark-gray bg-pink sm:h-[300px] lg:h-auto lg:w-1/2 lg:border-t-0 lg:border-l">
+      <div className="border-dark-gray bg-pink relative h-[220px] shrink-0 overflow-hidden border-t sm:h-[300px] lg:h-auto lg:w-1/2 lg:border-t-0 lg:border-l">
         <img
           src="/images/hero-duck.svg"
           alt="Pixel-art RedDuck mascot"

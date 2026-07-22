@@ -1,6 +1,9 @@
 import { PAGE_SIZE } from "@/lib/site";
 
-export function cumulativeLimit(page: number, pageSize: number = PAGE_SIZE): number {
+export function cumulativeLimit(
+  page: number,
+  pageSize: number = PAGE_SIZE,
+): number {
   return page * pageSize + 1;
 }
 

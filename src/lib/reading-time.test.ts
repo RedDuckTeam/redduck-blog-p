@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
+
 import { readingTimeMinutes } from "@/lib/reading-time";
 
-const words = (count: number): string => Array.from({ length: count }, () => "word").join(" ");
+const words = (count: number): string =>
+  Array.from({ length: count }, () => "word").join(" ");
 
 describe("readingTimeMinutes", () => {
   it("estimates ~200 words per minute (rounded)", () => {

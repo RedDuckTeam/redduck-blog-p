@@ -16,7 +16,7 @@ export function CustomSection({
 
   return (
     <Slot {...props} className={cn(className)}>
-      <div className="mx-auto w-full max-w-[1920px] border-dark-gray py-[20px] md:py-[40px] 2xl:py-[60px] 5xl:border-x">
+      <div className="border-dark-gray 5xl:border-x mx-auto w-full max-w-[1920px] py-[20px] md:py-[40px] 2xl:py-[60px]">
         {children}
       </div>
     </Slot>

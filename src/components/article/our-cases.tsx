@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { LANDING_URL } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const CASES_URL = `${LANDING_URL}/services/wallet-development`;
 
@@ -48,7 +48,7 @@ const CASES: CaseData[] = [
 
 function TagPill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="border border-dark-gray px-4 py-2 font-body text-[16px] whitespace-nowrap text-gray md:px-6 md:text-[18px]">
+    <span className="border-dark-gray font-body text-gray border px-4 py-2 text-[16px] whitespace-nowrap md:px-6 md:text-[18px]">
       {children}
     </span>
   );
@@ -58,7 +58,7 @@ function CaseCard({ data }: { data: CaseData }) {
   const imageOnRight = data.imageSide === "right";
 
   return (
-    <article className="grid border border-concrete lg:grid-cols-2">
+    <article className="border-concrete grid border lg:grid-cols-2">
       <div
         className={cn(
           "flex items-center justify-center bg-[#272727] p-6 md:p-10",
@@ -76,9 +76,7 @@ function CaseCard({ data }: { data: CaseData }) {
       <div
         className={cn(
           "flex flex-col gap-8 border-t border-concrete p-6 md:p-10 lg:border-t-0",
-          imageOnRight
-            ? "lg:order-1 lg:border-r"
-            : "lg:order-2 lg:border-l",
+          imageOnRight ? "lg:order-1 lg:border-r" : "lg:order-2 lg:border-l",
         )}
       >
         <div className="flex items-center justify-between gap-3">
@@ -97,7 +95,7 @@ function CaseCard({ data }: { data: CaseData }) {
           {data.paragraphs.map((paragraph, index) => (
             <p
               key={index}
-              className="font-body text-[16px] leading-[1.4] text-gray md:text-[20px]"
+              className="font-body text-gray text-[16px] leading-[1.4] md:text-[20px]"
             >
               {paragraph}
             </p>
@@ -110,10 +108,10 @@ function CaseCard({ data }: { data: CaseData }) {
           rel="noopener noreferrer"
           className="group inline-flex items-center gap-5"
         >
-          <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:bg-red group-hover:text-white">
+          <span className="group-hover:bg-red flex size-14 shrink-0 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:text-white">
             <ArrowUpRight className="size-7" aria-hidden />
           </span>
-          <span className="font-mono text-lg uppercase text-white md:text-[24px]">
+          <span className="font-mono text-lg text-white uppercase md:text-[24px]">
             Explore more
           </span>
         </a>
@@ -126,20 +124,20 @@ export function OurCases() {
   return (
     <section className="bg-black text-white">
       <div className="mx-auto flex max-w-[1920px] flex-col gap-10 px-5 py-[60px] md:gap-[60px] md:px-[60px]">
-        <div className="grid border border-concrete md:grid-cols-2">
-          <div className="flex min-h-[120px] items-center border-b border-concrete px-6 py-8 md:min-h-[150px] md:border-b-0 md:border-r md:px-10">
-            <h2 className="font-mono text-3xl font-medium uppercase text-white md:text-[45px]">
+        <div className="border-concrete grid border md:grid-cols-2">
+          <div className="border-concrete flex min-h-[120px] items-center border-b px-6 py-8 md:min-h-[150px] md:border-r md:border-b-0 md:px-10">
+            <h2 className="font-mono text-3xl font-medium text-white uppercase md:text-[45px]">
               _Our Cases
             </h2>
           </div>
           <div className="flex flex-col gap-5 px-6 py-8 md:px-10 md:py-10">
             <span className="size-[10px] bg-white" aria-hidden />
-            <p className="font-body text-[16px] leading-[1.4] text-gray md:text-[20px]">
+            <p className="font-body text-gray text-[16px] leading-[1.4] md:text-[20px]">
               Since 2020, RedDuck has focused on building Web3 products, with a
-              particular emphasis on crypto wallets. Among our publicly available
-              projects, we&rsquo;ve collaborated with ProxyWallet and GOWallet.
-              Both of them are unique wallets, each representing a unique
-              sub-niche. Below we will uncover them in more detail.
+              particular emphasis on crypto wallets. Among our publicly
+              available projects, we&rsquo;ve collaborated with ProxyWallet and
+              GOWallet. Both of them are unique wallets, each representing a
+              unique sub-niche. Below we will uncover them in more detail.
             </p>
           </div>
         </div>

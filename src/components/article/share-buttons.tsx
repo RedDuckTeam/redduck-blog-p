@@ -1,6 +1,5 @@
-import { useCallback, useState } from "react";
-
 import { Check, Copy } from "lucide-react";
+import { useCallback, useState } from "react";
 
 import { cn } from "@/lib/utils";
 

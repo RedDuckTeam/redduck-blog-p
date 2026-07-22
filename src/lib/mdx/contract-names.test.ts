@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { CONTRACT_COMPONENT_NAMES } from "@/lib/mdx/contract-names";
 import { MDX_COMPONENT_NAMES } from "@/lib/mdx/render";
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { renderMarkdown } from "@/lib/mdx/render";
+
 import type { TocItem } from "@/lib/mdx/parse";
+import { renderMarkdown } from "@/lib/mdx/render";
 
 export interface RenderablePost {
   slug: string;
@@ -32,7 +33,10 @@ export function renderPostContent(post: RenderablePost): RenderedContent {
   }
 
   const rendered = renderMarkdown(post.content);
-  const entry: CacheEntry = { ts, result: { node: rendered.node, toc: rendered.toc } };
+  const entry: CacheEntry = {
+    ts,
+    result: { node: rendered.node, toc: rendered.toc },
+  };
 
   cache.delete(post.slug);
   cache.set(post.slug, entry);

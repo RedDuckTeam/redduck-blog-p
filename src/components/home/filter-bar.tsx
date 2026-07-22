@@ -33,7 +33,7 @@ export function FilterBar({ tags, activeTag, query }: FilterBarProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 border border-dark-gray bg-gray p-5 lg:flex-row lg:items-stretch lg:justify-between">
+    <div className="border-dark-gray bg-gray flex flex-col gap-4 border p-5 lg:flex-row lg:items-stretch lg:justify-between">
       <div className="flex flex-wrap gap-2.5">
         <Link
           to="/"
@@ -66,12 +66,12 @@ export function FilterBar({ tags, activeTag, query }: FilterBarProps) {
           e.preventDefault();
           submitSearch(value);
         }}
-        className="flex items-center gap-4 border border-dark-gray bg-gray p-4 lg:w-[420px] xl:w-[550px]"
+        className="border-dark-gray bg-gray flex items-center gap-4 border p-4 lg:w-[420px] xl:w-[550px]"
       >
         <button
           type="submit"
           aria-label="Search"
-          className="shrink-0 text-concrete hover:text-black"
+          className="text-concrete shrink-0 hover:text-black"
         >
           <Search className="size-6" />
         </button>
@@ -81,7 +81,7 @@ export function FilterBar({ tags, activeTag, query }: FilterBarProps) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search"
-          className="min-w-0 flex-1 bg-transparent font-body text-base text-black placeholder:text-concrete focus:outline-none md:text-lg [&::-webkit-search-cancel-button]:hidden"
+          className="font-body placeholder:text-concrete min-w-0 flex-1 bg-transparent text-base text-black focus:outline-none md:text-lg [&::-webkit-search-cancel-button]:hidden"
         />
         {value && (
           <button
@@ -91,7 +91,7 @@ export function FilterBar({ tags, activeTag, query }: FilterBarProps) {
               setValue("");
               submitSearch("");
             }}
-            className="shrink-0 text-concrete hover:text-black"
+            className="text-concrete shrink-0 hover:text-black"
           >
             <X className="size-5" />
           </button>

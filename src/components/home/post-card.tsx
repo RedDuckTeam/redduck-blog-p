@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
+import { DuckMark } from "@/components/layout/icons";
 import { cn } from "@/lib/utils";
 import type { PostWithTags } from "@/server/posts";
-import { DuckMark } from "@/components/layout/icons";
 
 export type PostCardVariant = "wide" | "grid" | "strip";
 
@@ -58,13 +58,13 @@ export function PostCard({ post, variant = "grid", className }: PostCardProps) {
             className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex size-full items-center justify-center bg-concrete">
-            <DuckMark className="w-1/4 text-dark-gray" />
+          <div className="bg-concrete flex size-full items-center justify-center">
+            <DuckMark className="text-dark-gray w-1/4" />
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-5 border border-dark-gray bg-gray p-5">
+      <div className="border-dark-gray bg-gray flex flex-1 flex-col gap-5 border p-5">
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-3">
             {tags.map((tag) => (

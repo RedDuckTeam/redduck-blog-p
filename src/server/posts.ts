@@ -83,7 +83,9 @@ export async function listPosts({
   return { posts: items, hasMore };
 }
 
-export async function getPostBySlug(slug: string): Promise<PostWithTags | null> {
+export async function getPostBySlug(
+  slug: string,
+): Promise<PostWithTags | null> {
   const db = getDb();
   const post = await db.query.posts.findFirst({
     where: and(eq(posts.slug, slug), eq(posts.status, "published")),

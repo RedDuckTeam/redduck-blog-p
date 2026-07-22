@@ -1,22 +1,28 @@
-import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router"
-import { createServerFn } from "@tanstack/react-start"
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import { TanStackDevtools } from "@tanstack/react-devtools"
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { createServerFn } from "@tanstack/react-start";
 
-import { Footer } from "@/components/layout/footer"
-import { Header } from "@/components/layout/header"
-import { NotFound } from "@/components/not-found"
-import { seo } from "@/lib/seo"
-import appCss from "../styles.css?url"
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { NotFound } from "@/components/not-found";
+import { seo } from "@/lib/seo";
+
+import appCss from "../styles.css?url";
 
 const getFooterTags = createServerFn({ method: "GET" }).handler(async () => {
   try {
-    const { listTags } = await import("@/server/posts")
-    return (await listTags()).slice(0, 6)
+    const { listTags } = await import("@/server/posts");
+    return (await listTags()).slice(0, 6);
   } catch {
-    return []
+    return [];
   }
-})
+});
 
 export const Route = createRootRoute({
   loader: async () => ({ footerTags: await getFooterTags() }),
@@ -38,17 +44,17 @@ export const Route = createRootRoute({
   component: RootComponent,
   notFoundComponent: () => <NotFound />,
   shellComponent: RootDocument,
-})
+});
 
 function RootComponent() {
-  const { footerTags } = Route.useLoaderData()
+  const { footerTags } = Route.useLoaderData();
   return (
     <>
       <Header />
       <Outlet />
       <Footer topTags={footerTags} />
     </>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -73,5 +79,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

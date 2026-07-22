@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { PostWithTags } from "@/server/posts";
+
 import { chunkPostsIntoRows } from "./post-rows";
 
 function makePosts(count: number): PostWithTags[] {
@@ -11,7 +12,10 @@ function makePosts(count: number): PostWithTags[] {
 }
 
 function shape(posts: PostWithTags[]): [string, number][] {
-  return chunkPostsIntoRows(posts).map((row) => [row.variant, row.posts.length]);
+  return chunkPostsIntoRows(posts).map((row) => [
+    row.variant,
+    row.posts.length,
+  ]);
 }
 
 describe("chunkPostsIntoRows", () => {

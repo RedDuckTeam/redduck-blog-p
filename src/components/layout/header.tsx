@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { cn } from "@/lib/utils";
 import { CONTACT_US_URL, NAV_LINKS, type NavLink } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEM_BASE = cn(
   "flex h-full items-center font-mono uppercase text-black",
@@ -105,7 +105,7 @@ function MobileNav() {
       </button>
 
       {open && (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col overflow-y-auto border-t border-concrete bg-gray">
+        <div className="border-concrete bg-gray fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col overflow-y-auto border-t">
           {NAV_LINKS.map((link) =>
             link.external ? (
               <a
@@ -114,7 +114,7 @@ function MobileNav() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setOpen(false)}
-                className="flex h-[66px] items-center border-b border-concrete px-[30px] font-mono text-xl uppercase text-black hover:bg-[#e0cdc6dd]"
+                className="border-concrete flex h-[66px] items-center border-b px-[30px] font-mono text-xl text-black uppercase hover:bg-[#e0cdc6dd]"
               >
                 {link.name}
               </a>
@@ -125,7 +125,7 @@ function MobileNav() {
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: true }}
                 activeProps={{ className: "bg-[#e0cdc6dd] font-medium" }}
-                className="flex h-[66px] items-center border-b border-concrete px-[30px] font-mono text-xl uppercase text-black hover:bg-[#e0cdc6dd]"
+                className="border-concrete flex h-[66px] items-center border-b px-[30px] font-mono text-xl text-black uppercase hover:bg-[#e0cdc6dd]"
               >
                 {link.name}
               </Link>
@@ -135,7 +135,7 @@ function MobileNav() {
             <a
               href={CONTACT_US_URL}
               onClick={() => setOpen(false)}
-              className="flex h-[56px] w-full items-center justify-center bg-red font-mono text-lg uppercase text-black transition-opacity hover:opacity-90"
+              className="bg-red flex h-[56px] w-full items-center justify-center font-mono text-lg text-black uppercase transition-opacity hover:opacity-90"
             >
               Contact Us
             </a>

@@ -1,4 +1,5 @@
 import { toString } from "mdast-util-to-string";
+
 import { parseMarkdown } from "@/lib/mdx/parse";
 
 const WORDS_PER_MINUTE = 200;

@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Eye } from "lucide-react";
 
 import { ShareButtons } from "@/components/article/share-buttons";
-import type { PostWithTags } from "@/server/posts";
 import { LANDING_URL } from "@/lib/site";
+import type { PostWithTags } from "@/server/posts";
 
 interface ArticleHeroProps {
   post: Omit<PostWithTags, "content">;
@@ -23,12 +23,12 @@ const DATE_FMT = new Intl.DateTimeFormat("en-US", {
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 function Dot() {
-  return <span className="size-[10px] shrink-0 bg-dark-gray" aria-hidden />;
+  return <span className="bg-dark-gray size-[10px] shrink-0" aria-hidden />;
 }
 
 function MetaPlate({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-11 items-center gap-2 border border-concrete px-4 font-body text-sm text-gray md:text-[18px]">
+    <div className="border-concrete font-body text-gray flex h-11 items-center gap-2 border px-4 text-sm md:text-[18px]">
       {children}
     </div>
   );
@@ -48,20 +48,20 @@ export function ArticleHero({
   return (
     <header className="bg-black text-white">
       <div className="mx-auto w-full max-w-[1920px]">
-        <div className="flex flex-col gap-4 border-b border-concrete px-5 py-6 md:flex-row md:items-center md:justify-between md:px-[60px] md:py-[38px]">
+        <div className="border-concrete flex flex-col gap-4 border-b px-5 py-6 md:flex-row md:items-center md:justify-between md:px-[60px] md:py-[38px]">
           <nav
             aria-label="Breadcrumb"
-            className="flex min-w-0 items-center gap-4 font-body text-sm text-gray md:text-[18px]"
+            className="font-body text-gray flex min-w-0 items-center gap-4 text-sm md:text-[18px]"
           >
-            <a href={LANDING_URL} className="shrink-0 hover:text-red">
+            <a href={LANDING_URL} className="hover:text-red shrink-0">
               Home
             </a>
             <Dot />
-            <Link to="/" className="shrink-0 hover:text-red">
+            <Link to="/" className="hover:text-red shrink-0">
               Blog
             </Link>
             <Dot />
-            <span className="truncate text-dark-gray">{post.title}</span>
+            <span className="text-dark-gray truncate">{post.title}</span>
           </nav>
           <ShareButtons url={url} title={post.title} className="shrink-0" />
         </div>
@@ -71,7 +71,7 @@ export function ArticleHero({
           <span className="text-red blink-cursor">_</span>
         </h1>
 
-        <div className="flex items-center gap-6 border-y border-concrete px-5 py-8 md:px-[60px] md:py-10">
+        <div className="border-concrete flex items-center gap-6 border-y px-5 py-8 md:px-[60px] md:py-10">
           <img
             src="/images/avatar-duck.svg"
             alt=""
@@ -80,7 +80,7 @@ export function ArticleHero({
             className="size-16 shrink-0 md:size-[120px]"
           />
           <div className="min-w-0">
-            <p className="font-body text-sm text-dark-gray md:text-[18px]">
+            <p className="font-body text-dark-gray text-sm md:text-[18px]">
               Written by
             </p>
             <p className="font-body text-xl font-medium text-white md:text-[32px]">
@@ -110,7 +110,7 @@ export function ArticleHero({
                   key={tag.slug}
                   to="/"
                   search={{ tag: tag.slug }}
-                  className="flex h-[42px] items-center border border-concrete px-4 font-body text-sm text-gray transition-colors hover:border-red hover:text-red md:text-[18px]"
+                  className="border-concrete font-body text-gray hover:border-red hover:text-red flex h-[42px] items-center border px-4 text-sm transition-colors md:text-[18px]"
                 >
                   {tag.name}
                 </Link>

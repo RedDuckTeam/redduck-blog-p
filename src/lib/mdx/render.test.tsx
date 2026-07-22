@@ -1,5 +1,6 @@
 import { renderToString } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+
 import { renderMarkdown } from "@/lib/mdx/render";
 
 function html(content: string): string {
@@ -79,7 +80,9 @@ describe("renderMarkdown — full document smoke", () => {
   });
 
   it("opens external links in a new tab but not internal links", () => {
-    expect(out).toMatch(/<a[^>]+href="https:\/\/example\.com"[^>]+target="_blank"[^>]+rel="noopener noreferrer"/);
+    expect(out).toMatch(
+      /<a[^>]+href="https:\/\/example\.com"[^>]+target="_blank"[^>]+rel="noopener noreferrer"/,
+    );
     expect(out).toMatch(/<a[^>]+href="\/about"/);
     expect(out).not.toMatch(/<a[^>]+href="\/about"[^>]+target="_blank"/);
   });
@@ -180,7 +183,9 @@ describe("renderMarkdown — contract triple (children model)", () => {
 
 describe("renderMarkdown — fallback path", () => {
   it("still renders content when JSX is malformed", () => {
-    const result = renderMarkdown("Intro text <Callout type=>oops\n\nMore text");
+    const result = renderMarkdown(
+      "Intro text <Callout type=>oops\n\nMore text",
+    );
     expect(result.fallback).toBe(true);
     const out = renderToString(<div>{result.node}</div>);
     expect(out).toContain("More text");
@@ -204,14 +209,18 @@ describe("renderMarkdown — URL scheme safety", () => {
   });
 
   it("drops the Cta button when buttonUrl uses an unsafe scheme", () => {
-    const out = html('<Cta title="Hi" buttonText="Go" buttonUrl="javascript:alert(1)" />\n');
+    const out = html(
+      '<Cta title="Hi" buttonText="Go" buttonUrl="javascript:alert(1)" />\n',
+    );
     expect(out).toContain("Hi");
     expect(out).not.toContain("javascript:");
     expect(out).not.toContain("Go");
   });
 
   it("keeps the Cta button for a safe buttonUrl", () => {
-    const out = html('<Cta title="Hi" buttonText="Go" buttonUrl="https://redduck.io" />\n');
+    const out = html(
+      '<Cta title="Hi" buttonText="Go" buttonUrl="https://redduck.io" />\n',
+    );
     expect(out).toContain('href="https://redduck.io"');
     expect(out).toContain("Go");
   });
@@ -219,7 +228,9 @@ describe("renderMarkdown — URL scheme safety", () => {
   it("sandboxes Embed iframes and blocks non-http(s) embeds", () => {
     const ok = html('<Embed url="https://youtube.com/embed/x" title="V" />\n');
     expect(ok).toContain("<iframe");
-    expect(ok).toContain('sandbox="allow-scripts allow-same-origin allow-presentation"');
+    expect(ok).toContain(
+      'sandbox="allow-scripts allow-same-origin allow-presentation"',
+    );
 
     const bad = html('<Embed url="javascript:alert(1)" title="V" />\n');
     expect(bad).not.toContain("<iframe");

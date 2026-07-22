@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-
 import { ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -102,7 +101,7 @@ export function Toc({ toc, className }: TocProps) {
 
   return (
     <div className={className}>
-      <details className="border border-concrete bg-black text-white lg:hidden">
+      <details className="border-concrete border bg-black text-white lg:hidden">
         <summary className="cursor-pointer list-none px-5 py-5 font-mono text-[20px] marker:hidden">
           Table of contents
         </summary>
@@ -111,9 +110,9 @@ export function Toc({ toc, className }: TocProps) {
 
       <nav
         aria-label="Table of contents"
-        className="hidden border border-concrete bg-black text-white lg:sticky lg:top-0 lg:block lg:max-h-screen lg:overflow-y-auto"
+        className="border-concrete hidden border bg-black text-white lg:sticky lg:top-0 lg:block lg:max-h-screen lg:overflow-y-auto"
       >
-        <div className="border-b border-concrete px-5 py-8 font-mono text-[28px]">
+        <div className="border-concrete border-b px-5 py-8 font-mono text-[28px]">
           Table of contents
         </div>
         <TocList toc={toc} activeId={activeId} />

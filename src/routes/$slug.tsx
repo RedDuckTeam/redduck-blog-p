@@ -22,9 +22,8 @@ interface ArticleData {
 const loadArticle = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }): Promise<ArticleData | null> => {
-    const { getPostBySlug, getViews, incrementViews } = await import(
-      "@/server/posts"
-    );
+    const { getPostBySlug, getViews, incrementViews } =
+      await import("@/server/posts");
     const post = await getPostBySlug(slug);
     if (!post) return null;
 

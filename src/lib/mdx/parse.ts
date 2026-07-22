@@ -4,6 +4,7 @@ import { mdxJsxFromMarkdown } from "mdast-util-mdx-jsx";
 import { toString } from "mdast-util-to-string";
 import { gfm } from "micromark-extension-gfm";
 import { mdxJsx } from "micromark-extension-mdx-jsx";
+
 import type { Heading, Nodes, Root } from "@/lib/mdx/mdast-types";
 
 export interface TocItem {
@@ -32,7 +33,10 @@ export function parseMarkdown(content: string): ParseResult {
     });
   } catch (error) {
     fallback = true;
-    console.warn("[mdx] JSX parse failed, falling back to plain markdown:", error);
+    console.warn(
+      "[mdx] JSX parse failed, falling back to plain markdown:",
+      error,
+    );
     tree = fromMarkdown(content, {
       extensions: [gfm(), DISABLE_INDENTED_CODE],
       mdastExtensions: [gfmFromMarkdown()],

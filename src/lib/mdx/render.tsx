@@ -1,4 +1,4 @@
-import Prism from "@/lib/mdx/prism-global";
+import type { CSSProperties, ReactNode } from "react";
 import "prismjs/components/prism-markup";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
@@ -7,7 +7,7 @@ import "prismjs/components/prism-tsx";
 import "prismjs/components/prism-bash";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-css";
-import type { CSSProperties, ReactNode } from "react";
+
 import type {
   AlignType,
   Code,
@@ -22,6 +22,7 @@ import type {
   Table,
 } from "@/lib/mdx/mdast-types";
 import { parseMarkdown, type TocItem } from "@/lib/mdx/parse";
+import Prism from "@/lib/mdx/prism-global";
 
 export interface RenderResult {
   node: ReactNode;
@@ -34,7 +35,10 @@ export function renderMarkdown(content: string): RenderResult {
   return { node: <>{renderNodes(tree.children, "n")}</>, toc, fallback };
 }
 
-function renderNodes(nodes: ReadonlyArray<Nodes>, keyPrefix: string): ReactNode[] {
+function renderNodes(
+  nodes: ReadonlyArray<Nodes>,
+  keyPrefix: string,
+): ReactNode[] {
   return nodes.map((node, index) => renderNode(node, `${keyPrefix}-${index}`));
 }
 
@@ -44,7 +48,10 @@ function renderNode(node: Nodes, key: string): ReactNode {
       return node.value;
     case "paragraph":
       return (
-        <p key={key} className="my-5 font-body text-lg leading-relaxed text-gray">
+        <p
+          key={key}
+          className="font-body text-gray my-5 text-lg leading-relaxed"
+        >
           {renderNodes(node.children, key)}
         </p>
       );
@@ -52,7 +59,7 @@ function renderNode(node: Nodes, key: string): ReactNode {
       return renderHeading(node, key);
     case "strong":
       return (
-        <strong key={key} className="font-semibold text-red">
+        <strong key={key} className="text-red font-semibold">
           {renderNodes(node.children, key)}
         </strong>
       );
@@ -74,7 +81,7 @@ function renderNode(node: Nodes, key: string): ReactNode {
       return (
         <code
           key={key}
-          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.9em] text-gray"
+          className="text-gray rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.9em]"
         >
           {node.value}
         </code>
@@ -89,12 +96,15 @@ function renderNode(node: Nodes, key: string): ReactNode {
       return renderListItem(node, key);
     case "blockquote":
       return (
-        <blockquote key={key} className="my-6 border-l-4 border-red pl-5 italic text-gray">
+        <blockquote
+          key={key}
+          className="border-red text-gray my-6 border-l-4 pl-5 italic"
+        >
           {renderNodes(node.children, key)}
         </blockquote>
       );
     case "thematicBreak":
-      return <hr key={key} className="my-10 border-t border-concrete" />;
+      return <hr key={key} className="border-concrete my-10 border-t" />;
     case "code":
       return renderCode(node, key);
     case "table":
@@ -113,7 +123,11 @@ function renderHeading(node: Heading, key: string): ReactNode {
   switch (node.depth) {
     case 1:
       return (
-        <h1 key={key} id={id} className="mt-12 mb-6 font-mono text-4xl font-bold uppercase tracking-tight text-white">
+        <h1
+          key={key}
+          id={id}
+          className="mt-12 mb-6 font-mono text-4xl font-bold tracking-tight text-white uppercase"
+        >
           {children}
         </h1>
       );
@@ -122,7 +136,7 @@ function renderHeading(node: Heading, key: string): ReactNode {
         <h2
           key={key}
           id={id}
-          className="mt-12 mb-5 scroll-mt-24 font-mono text-3xl font-bold uppercase tracking-tight text-white"
+          className="mt-12 mb-5 scroll-mt-24 font-mono text-3xl font-bold tracking-tight text-white uppercase"
         >
           {children}
         </h2>
@@ -132,14 +146,17 @@ function renderHeading(node: Heading, key: string): ReactNode {
         <h3
           key={key}
           id={id}
-          className="mt-10 mb-4 scroll-mt-24 font-mono text-2xl font-bold uppercase tracking-tight text-white"
+          className="mt-10 mb-4 scroll-mt-24 font-mono text-2xl font-bold tracking-tight text-white uppercase"
         >
           {children}
         </h3>
       );
     default:
       return (
-        <h4 key={key} className="mt-8 mb-3 font-mono text-lg font-semibold uppercase text-white">
+        <h4
+          key={key}
+          className="mt-8 mb-3 font-mono text-lg font-semibold text-white uppercase"
+        >
           {children}
         </h4>
       );
@@ -161,7 +178,9 @@ function renderLink(node: Link, key: string): ReactNode {
   const safe = isSafeUrl(node.url);
   if (!safe) console.warn(`[mdx] blocked unsafe link href: ${node.url}`);
   const external = safe && /^https?:\/\//i.test(node.url);
-  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  const externalProps = external
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
   return (
     <a
       key={key}
@@ -188,7 +207,7 @@ function renderImage(node: Image, key: string): ReactNode {
     return (
       <figure key={key} className="my-6">
         {image}
-        <figcaption className="mt-2 text-center font-mono text-xs text-dark-gray">
+        <figcaption className="text-dark-gray mt-2 text-center font-mono text-xs">
           {node.title}
         </figcaption>
       </figure>
@@ -206,13 +225,15 @@ function renderImage(node: Image, key: string): ReactNode {
 }
 
 function renderList(node: List, key: string): ReactNode {
-  const items = node.children.map((item, index) => renderListItem(item, `${key}-${index}`));
+  const items = node.children.map((item, index) =>
+    renderListItem(item, `${key}-${index}`),
+  );
   if (node.ordered) {
     return (
       <ol
         key={key}
         start={node.start ?? undefined}
-        className="my-5 list-decimal space-y-2 pl-6 font-body text-lg leading-relaxed text-gray marker:text-red"
+        className="font-body text-gray marker:text-red my-5 list-decimal space-y-2 pl-6 text-lg leading-relaxed"
       >
         {items}
       </ol>
@@ -221,7 +242,7 @@ function renderList(node: List, key: string): ReactNode {
   return (
     <ul
       key={key}
-      className="my-5 list-disc space-y-2 pl-6 font-body text-lg leading-relaxed text-gray marker:text-red"
+      className="font-body text-gray marker:text-red my-5 list-disc space-y-2 pl-6 text-lg leading-relaxed"
     >
       {items}
     </ul>
@@ -280,11 +301,14 @@ function renderCode(node: Code, key: string): ReactNode {
 
   const label = rawLang || "text";
   return (
-    <div key={key} className="my-6 overflow-hidden rounded border border-concrete/60 bg-[#161616]">
-      <div className="border-b border-concrete/60 bg-white/5 px-4 py-2 font-mono text-xs uppercase tracking-wide text-dark-gray">
+    <div
+      key={key}
+      className="border-concrete/60 my-6 overflow-hidden rounded border bg-[#161616]"
+    >
+      <div className="border-concrete/60 text-dark-gray border-b bg-white/5 px-4 py-2 font-mono text-xs tracking-wide uppercase">
         {label}
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-sm leading-relaxed text-gray">
+      <pre className="text-gray overflow-x-auto p-4 font-mono text-sm leading-relaxed">
         {highlighted === null ? (
           <code className="language-none">{node.value}</code>
         ) : (
@@ -307,7 +331,7 @@ function renderTable(node: Table, key: string): ReactNode {
   const [headerRow, ...bodyRows] = node.children;
   return (
     <div key={key} className="my-6 overflow-x-auto">
-      <table className="w-full border-collapse font-body text-sm text-gray">
+      <table className="font-body text-gray w-full border-collapse text-sm">
         {headerRow ? (
           <thead>
             <tr>
@@ -315,7 +339,7 @@ function renderTable(node: Table, key: string): ReactNode {
                 <th
                   key={ci}
                   style={alignStyle(align[ci])}
-                  className="border border-concrete bg-white/5 px-4 py-2 text-left font-mono text-xs uppercase tracking-wide text-white"
+                  className="border-concrete border bg-white/5 px-4 py-2 text-left font-mono text-xs tracking-wide text-white uppercase"
                 >
                   {renderNodes(cell.children, `${key}-h-${ci}`)}
                 </th>
@@ -330,7 +354,7 @@ function renderTable(node: Table, key: string): ReactNode {
                 <td
                   key={ci}
                   style={alignStyle(align[ci])}
-                  className="border border-concrete px-4 py-2 align-top"
+                  className="border-concrete border px-4 py-2 align-top"
                 >
                   {renderNodes(cell.children, `${key}-${ri}-${ci}`)}
                 </td>
@@ -361,21 +385,26 @@ const CALLOUT_STYLES: Record<string, string> = {
 function renderCta({ attrs, key }: MdxContext): ReactNode {
   const rawUrl = attrs.buttonUrl ?? "";
   const safe = rawUrl !== "" && isSafeUrl(rawUrl);
-  if (rawUrl !== "" && !safe) console.warn(`[mdx] blocked unsafe Cta buttonUrl: ${rawUrl}`);
+  if (rawUrl !== "" && !safe)
+    console.warn(`[mdx] blocked unsafe Cta buttonUrl: ${rawUrl}`);
   const buttonUrl = safe ? rawUrl : "";
   const external = /^https?:\/\//i.test(buttonUrl);
-  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  const externalProps = external
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
   return (
     <div
       key={key}
-      className="my-8 flex flex-col items-start gap-4 rounded border border-concrete bg-white/5 p-6 sm:flex-row sm:items-center sm:justify-between"
+      className="border-concrete my-8 flex flex-col items-start gap-4 rounded border bg-white/5 p-6 sm:flex-row sm:items-center sm:justify-between"
     >
-      <div className="font-mono text-xl font-bold uppercase text-white">{attrs.title ?? ""}</div>
+      <div className="font-mono text-xl font-bold text-white uppercase">
+        {attrs.title ?? ""}
+      </div>
       {buttonUrl ? (
         <a
           href={buttonUrl}
           {...externalProps}
-          className="inline-flex shrink-0 bg-red px-6 py-3 font-mono text-sm font-bold uppercase text-white hover:bg-red/90"
+          className="bg-red hover:bg-red/90 inline-flex shrink-0 px-6 py-3 font-mono text-sm font-bold text-white uppercase"
         >
           {attrs.buttonText || "Learn more"}
         </a>
@@ -393,7 +422,7 @@ function renderEmbed({ attrs, key }: MdxContext): ReactNode {
   return (
     <div
       key={key}
-      className="my-6 aspect-video w-full overflow-hidden rounded border border-concrete"
+      className="border-concrete my-6 aspect-video w-full overflow-hidden rounded border"
     >
       <iframe
         src={url}
@@ -409,7 +438,7 @@ function renderEmbed({ attrs, key }: MdxContext): ReactNode {
 
 function proConBadge(sign: "+" | "−"): ReactNode {
   return (
-    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red text-sm font-bold text-white">
+    <span className="bg-red inline-flex h-6 w-6 items-center justify-center rounded-full text-sm font-bold text-white">
       {sign}
     </span>
   );
@@ -421,7 +450,7 @@ const MDX_RENDERERS: Record<string, MdxRenderer> = {
     return (
       <aside
         key={key}
-        className={`my-6 rounded border-l-4 p-4 font-body text-sm leading-6 text-gray ${CALLOUT_STYLES[type]}`}
+        className={`font-body text-gray my-6 rounded border-l-4 p-4 text-sm leading-6 ${CALLOUT_STYLES[type]}`}
       >
         {children}
       </aside>
@@ -435,19 +464,29 @@ const MDX_RENDERERS: Record<string, MdxRenderer> = {
     </div>
   ),
   Pros: ({ children, key }) => (
-    <div key={key} className="rounded border border-concrete/60 bg-white/[0.03] p-4">
+    <div
+      key={key}
+      className="border-concrete/60 rounded border bg-white/[0.03] p-4"
+    >
       <div className="mb-3 flex items-center gap-2">
         {proConBadge("+")}
-        <span className="font-mono text-sm font-bold uppercase text-white">Pros</span>
+        <span className="font-mono text-sm font-bold text-white uppercase">
+          Pros
+        </span>
       </div>
       <div className="font-body text-gray">{children}</div>
     </div>
   ),
   Cons: ({ children, key }) => (
-    <div key={key} className="rounded border border-concrete/60 bg-white/[0.03] p-4">
+    <div
+      key={key}
+      className="border-concrete/60 rounded border bg-white/[0.03] p-4"
+    >
       <div className="mb-3 flex items-center gap-2">
         {proConBadge("−")}
-        <span className="font-mono text-sm font-bold uppercase text-white">Cons</span>
+        <span className="font-mono text-sm font-bold text-white uppercase">
+          Cons
+        </span>
       </div>
       <div className="font-body text-gray">{children}</div>
     </div>
@@ -458,18 +497,21 @@ const MDX_RENDERERS: Record<string, MdxRenderer> = {
     </div>
   ),
   FeatureCard: ({ attrs, children, key }) => (
-    <div key={key} className="rounded border border-concrete/60 bg-white/5 p-5">
-      <div className="mb-2 font-mono text-base font-bold uppercase text-white">
+    <div key={key} className="border-concrete/60 rounded border bg-white/5 p-5">
+      <div className="mb-2 font-mono text-base font-bold text-white uppercase">
         {attrs.title ?? ""}
       </div>
-      <div className="font-body text-sm text-gray">{children}</div>
+      <div className="font-body text-gray text-sm">{children}</div>
     </div>
   ),
 };
 
 export const MDX_COMPONENT_NAMES = Object.keys(MDX_RENDERERS);
 
-function renderMdxJsx(node: MdxJsxFlowElement | MdxJsxTextElement, key: string): ReactNode {
+function renderMdxJsx(
+  node: MdxJsxFlowElement | MdxJsxTextElement,
+  key: string,
+): ReactNode {
   const name = node.name ?? "";
   const attrs = extractStringAttributes(node);
   const children = renderNodes(node.children, key);
@@ -478,7 +520,9 @@ function renderMdxJsx(node: MdxJsxFlowElement | MdxJsxTextElement, key: string):
   if (renderer) return renderer({ attrs, children, key });
 
   if (name) {
-    console.warn(`[mdx] unknown component <${name}> — rendering its children as-is`);
+    console.warn(
+      `[mdx] unknown component <${name}> — rendering its children as-is`,
+    );
   }
   return <div key={key}>{children}</div>;
 }
@@ -495,7 +539,9 @@ function extractStringAttributes(
     } else if (typeof value === "string") {
       attrs[name] = value;
     } else {
-      console.warn(`[mdx] ignoring expression attribute "${name}" on <${node.name ?? ""}>`);
+      console.warn(
+        `[mdx] ignoring expression attribute "${name}" on <${node.name ?? ""}>`,
+      );
     }
   }
   return attrs;

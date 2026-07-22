@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router";
 
-export function LoadMore({ page, hasMore }: { page: number; hasMore: boolean }) {
+export function LoadMore({
+  page,
+  hasMore,
+}: {
+  page: number;
+  hasMore: boolean;
+}) {
   if (!hasMore) return null;
 
   return (
@@ -9,7 +15,7 @@ export function LoadMore({ page, hasMore }: { page: number; hasMore: boolean }) 
         to="/"
         search={(prev) => ({ ...prev, page: page + 1 })}
         resetScroll={false}
-        className="border border-concrete bg-black px-12 py-4 font-mono text-base uppercase text-white transition-colors hover:bg-red hover:text-black md:text-lg"
+        className="border-concrete hover:bg-red border bg-black px-12 py-4 font-mono text-base text-white uppercase transition-colors hover:text-black md:text-lg"
       >
         Load more
       </Link>

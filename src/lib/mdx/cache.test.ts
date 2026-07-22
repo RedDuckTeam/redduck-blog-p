@@ -1,11 +1,20 @@
 import { describe, expect, it } from "vitest";
+
 import { renderPostContent } from "@/lib/mdx/cache";
 
 describe("renderPostContent", () => {
   it("returns the same rendered object for the same slug + updatedAt (cache hit)", () => {
     const updatedAt = new Date("2026-01-01T00:00:00Z");
-    const first = renderPostContent({ slug: "hit", updatedAt, content: "# One" });
-    const second = renderPostContent({ slug: "hit", updatedAt, content: "# Two" });
+    const first = renderPostContent({
+      slug: "hit",
+      updatedAt,
+      content: "# One",
+    });
+    const second = renderPostContent({
+      slug: "hit",
+      updatedAt,
+      content: "# Two",
+    });
     expect(second).toBe(first);
   });
 
@@ -40,7 +49,11 @@ describe("renderPostContent", () => {
     for (let i = 1; i <= 50; i++) {
       renderPostContent({ slug: `lru-${i}`, updatedAt, content: "x" });
     }
-    const refetched = renderPostContent({ slug: "lru-0", updatedAt, content: "x" });
+    const refetched = renderPostContent({
+      slug: "lru-0",
+      updatedAt,
+      content: "x",
+    });
     expect(refetched).not.toBe(first);
   });
 });

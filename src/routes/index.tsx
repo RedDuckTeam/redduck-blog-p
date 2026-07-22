@@ -67,7 +67,7 @@ function HomePage() {
           <FilterBar tags={tags} activeTag={tag} query={q} />
         </div>
 
-        <div className="border-x border-dark-gray">
+        <div className="border-dark-gray border-x">
           {posts.length > 0 ? (
             <>
               <PostRows posts={posts} />
@@ -85,10 +85,10 @@ function HomePage() {
 function EmptyState({ filtering }: { filtering: boolean }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 px-4 py-20 text-center md:py-[120px]">
-      <p className="font-mono text-2xl uppercase text-black md:text-3xl">
+      <p className="font-mono text-2xl text-black uppercase md:text-3xl">
         Nothing found<span className="blink-cursor text-red">_</span>
       </p>
-      <p className="max-w-md font-body text-base text-concrete md:text-lg">
+      <p className="font-body text-concrete max-w-md text-base md:text-lg">
         {filtering
           ? "No posts match your filters yet. Try another topic or clear the search."
           : "There are no published posts here yet. Check back soon."}

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { parseMarkdown } from "@/lib/mdx/parse";
 
 describe("parseMarkdown", () => {
@@ -25,7 +26,9 @@ describe("parseMarkdown", () => {
     const headingIds = tree.children
       .filter((node) => node.type === "heading")
       .map((node) =>
-        node.type === "heading" ? (node.data as { id?: string } | undefined)?.id : undefined,
+        node.type === "heading"
+          ? (node.data as { id?: string } | undefined)?.id
+          : undefined,
       );
     expect(headingIds).toEqual(["setup", "setup-1", "setup-2"]);
   });
@@ -41,13 +44,19 @@ describe("parseMarkdown", () => {
   });
 
   it("keeps valid JSX as mdast nodes without a fallback", () => {
-    const { fallback, tree } = parseMarkdown('<Callout type="info">\n\nHi\n\n</Callout>\n');
+    const { fallback, tree } = parseMarkdown(
+      '<Callout type="info">\n\nHi\n\n</Callout>\n',
+    );
     expect(fallback).toBe(false);
-    expect(tree.children.some((node) => node.type === "mdxJsxFlowElement")).toBe(true);
+    expect(
+      tree.children.some((node) => node.type === "mdxJsxFlowElement"),
+    ).toBe(true);
   });
 
   it("falls back to plain markdown when JSX is malformed (never throws)", () => {
-    const { fallback, tree } = parseMarkdown("Hello <Callout type=>broken\n\nAfter");
+    const { fallback, tree } = parseMarkdown(
+      "Hello <Callout type=>broken\n\nAfter",
+    );
     expect(fallback).toBe(true);
     expect(tree.type).toBe("root");
     expect(tree.children.length).toBeGreaterThan(0);
@@ -60,7 +69,8 @@ describe("parseMarkdown", () => {
     const pros = tree.children.find(
       (node) => node.type === "mdxJsxFlowElement" && node.name === "Pros",
     );
-    const inner = pros?.type === "mdxJsxFlowElement" ? pros.children[0] : undefined;
+    const inner =
+      pros?.type === "mdxJsxFlowElement" ? pros.children[0] : undefined;
     expect(inner?.type).toBe("list");
   });
 });

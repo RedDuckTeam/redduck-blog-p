@@ -1,5 +1,6 @@
 import { PAGE_SIZE, STRIP_SIZE } from "@/lib/site";
 import type { PostWithTags } from "@/server/posts";
+
 import { PostCard, type PostCardVariant } from "./post-card";
 
 export interface PostRow {
@@ -38,7 +39,9 @@ const ROW_GAP = "gap-5 2xl:gap-[20px]";
 function Row({ variant, posts }: PostRow) {
   if (variant === "wide") {
     return (
-      <div className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${ROW_GAP}`}>
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ${ROW_GAP}`}
+      >
         {posts.map((post) => (
           <PostCard key={post.id} post={post} variant="wide" />
         ))}

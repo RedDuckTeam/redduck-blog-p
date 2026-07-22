@@ -11,8 +11,9 @@ import {
   SOCIAL_LINKS,
   UPWORK_URL,
 } from "@/lib/site";
-import type { TagWithCount } from "@/server/posts";
 import { cn } from "@/lib/utils";
+import type { TagWithCount } from "@/server/posts";
+
 import {
   ClutchLogo,
   DouIcon,
@@ -59,12 +60,12 @@ export function Footer({ topTags = [] }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-gray">
-      <div className="mx-auto w-full max-w-[1920px] border-t border-l border-concrete">
+    <footer className="text-gray bg-black">
+      <div className="border-concrete mx-auto w-full max-w-[1920px] border-t border-l">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4">
           <div className={COLUMN}>
             <h2 className={COLUMN_TITLE}>Contact Us</h2>
-            <address className="flex flex-col gap-5 px-6 py-8 font-body text-base not-italic text-gray 2xl:px-10 2xl:py-10 2xl:text-[18px]">
+            <address className="font-body text-gray flex flex-col gap-5 px-6 py-8 text-base not-italic 2xl:px-10 2xl:py-10 2xl:text-[18px]">
               <a
                 href={`mailto:${CONTACTS.email}`}
                 className="w-fit hover:text-white hover:underline"
@@ -99,7 +100,11 @@ export function Footer({ topTags = [] }: FooterProps) {
             <h2 className={COLUMN_TITLE}>About Us</h2>
             <nav className="flex flex-col">
               {FOOTER_ABOUT.map((link) => (
-                <ExternalRow key={link.name} name={link.name} href={link.href} />
+                <ExternalRow
+                  key={link.name}
+                  name={link.name}
+                  href={link.href}
+                />
               ))}
             </nav>
           </div>
@@ -108,7 +113,11 @@ export function Footer({ topTags = [] }: FooterProps) {
             <h2 className={COLUMN_TITLE}>Our Services</h2>
             <nav className="flex flex-col">
               {FOOTER_SERVICES.map((link) => (
-                <ExternalRow key={link.name} name={link.name} href={link.href} />
+                <ExternalRow
+                  key={link.name}
+                  name={link.name}
+                  href={link.href}
+                />
               ))}
             </nav>
           </div>
@@ -125,7 +134,7 @@ export function Footer({ topTags = [] }: FooterProps) {
                     className={NAV_ROW}
                   >
                     <span className="truncate">{tag.name}</span>
-                    <span className="shrink-0 text-dark-gray">{tag.count}</span>
+                    <span className="text-dark-gray shrink-0">{tag.count}</span>
                   </Link>
                 ))
               ) : (
@@ -139,7 +148,7 @@ export function Footer({ topTags = [] }: FooterProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 border-b border-r border-concrete px-6 py-10 md:col-span-2 2xl:gap-x-[60px]">
+          <div className="border-concrete flex flex-wrap items-center justify-center gap-x-10 gap-y-6 border-r border-b px-6 py-10 md:col-span-2 2xl:gap-x-[60px]">
             {SOCIAL_LINKS.map((link) => {
               const Icon = SOCIAL_ICONS[link.name];
               if (!Icon) return null;
@@ -162,7 +171,9 @@ export function Footer({ topTags = [] }: FooterProps) {
             href={CLUTCH_URL}
             label="Clutch"
             starClassName="text-red"
-            logo={<ClutchLogo className="h-[36px] w-auto text-white 2xl:h-[40px]" />}
+            logo={
+              <ClutchLogo className="h-[36px] w-auto text-white 2xl:h-[40px]" />
+            }
           />
           <RatingCard
             href={UPWORK_URL}
@@ -174,17 +185,17 @@ export function Footer({ topTags = [] }: FooterProps) {
           />
         </div>
 
-        <div className="h-[80px] border-r border-b border-concrete lg:h-[120px] 2xl:h-[180px]" />
+        <div className="border-concrete h-[80px] border-r border-b lg:h-[120px] 2xl:h-[180px]" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2">
-          <p className="flex items-center justify-center border-b border-r border-concrete px-6 py-5 text-center font-body text-base text-gray 2xl:text-[20px]">
+          <p className="border-concrete font-body text-gray flex items-center justify-center border-r border-b px-6 py-5 text-center text-base 2xl:text-[20px]">
             © {year} Copyright. All rights reserved
           </p>
           <a
             href={PRIVACY_POLICY_URL}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center border-b border-r border-concrete px-6 py-5 text-center font-body text-base text-gray transition-colors hover:bg-white/5 2xl:text-[20px]"
+            className="border-concrete font-body text-gray flex items-center justify-center border-r border-b px-6 py-5 text-center text-base transition-colors hover:bg-white/5 2xl:text-[20px]"
           >
             Privacy Policy
           </a>
@@ -211,11 +222,13 @@ function RatingCard({
       target="_blank"
       rel="noreferrer"
       aria-label={`RedDuck 5.0 rating on ${label}`}
-      className="flex items-center justify-between gap-4 border-b border-r border-concrete px-6 py-8 transition-colors hover:bg-white/5 2xl:px-10 2xl:py-10"
+      className="border-concrete flex items-center justify-between gap-4 border-r border-b px-6 py-8 transition-colors hover:bg-white/5 2xl:px-10 2xl:py-10"
     >
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xl text-gray 2xl:text-[24px]">5.0</span>
+          <span className="text-gray font-mono text-xl 2xl:text-[24px]">
+            5.0
+          </span>
           <span className={cn("flex gap-1", starClassName)}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
@@ -226,12 +239,12 @@ function RatingCard({
             ))}
           </span>
         </div>
-        <span className="font-mono text-sm uppercase text-dark-gray 2xl:text-base">
+        <span className="text-dark-gray font-mono text-sm uppercase 2xl:text-base">
           Reviewed on
         </span>
         {logo}
       </div>
-      <span className="flex size-[48px] shrink-0 items-center justify-center rounded-full border border-concrete 2xl:size-[56px]">
+      <span className="border-concrete flex size-[48px] shrink-0 items-center justify-center rounded-full border 2xl:size-[56px]">
         <ArrowUpRight className="size-6 text-white" />
       </span>
     </a>
