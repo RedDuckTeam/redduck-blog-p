@@ -6,6 +6,7 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
+    "db:setup": "wrangler d1 execute redduck-blog --local --file=db/schema.sql && wrangler d1 execute redduck-blog --local --file=db/manual/post-views.sql && wrangler d1 execute redduck-blog --local --file=scripts/seed.sql",
     "test": "vitest run",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",

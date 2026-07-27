@@ -29,21 +29,23 @@
 
 ```bash
 pnpm install
+pnpm db:setup
 pnpm dev
 ```
 
-The blog will be waddling at `http://localhost:3000`.
+The blog will be waddling at `http://localhost:3000`, seeded with a handful of demo posts.
 
 ## 📜 Scripts
 
-| Command          | What it does                 |
-| ---------------- | ---------------------------- |
-| `pnpm dev`       | Start the dev server         |
-| `pnpm build`     | Build for production         |
-| `pnpm preview`   | Preview the production build |
-| `pnpm test`      | Run unit tests (Vitest)      |
-| `pnpm lint`      | Lint the code                |
-| `pnpm typecheck` | Type-check without emitting  |
+| Command           | What it does                               |
+| ----------------- | ------------------------------------------ |
+| `pnpm dev`        | Start the dev server                       |
+| `pnpm build`      | Build for production                       |
+| `pnpm preview`    | Preview the production build               |
+| `pnpm db:setup`   | Set up a local database with demo content  |
+| `pnpm test`       | Run unit tests (Vitest)                    |
+| `pnpm lint`       | Lint the code                              |
+| `pnpm typecheck`  | Type-check without emitting                |
 
 ## 📄 License
 
