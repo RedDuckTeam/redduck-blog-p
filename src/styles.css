@@ -91,10 +91,22 @@
   html {
     @apply font-sans;
     scrollbar-gutter: stable;
+    scrollbar-color: var(--color-dark-gray) var(--color-gray);
   }
   body {
     @apply bg-background text-foreground antialiased;
   }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-gray);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-gray);
 }
 
 @keyframes blink {
