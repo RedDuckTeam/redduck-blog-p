@@ -15,15 +15,16 @@
 
 ---
 
-## 🧰 Built with
+## Built with
 
-- ⚡ [TanStack Start](https://tanstack.com/start) — full-stack React framework
-- ⚛️ React 19 + TypeScript
-- 🎨 [Tailwind CSS](https://tailwindcss.com/) v4
-- 🧱 [Shadcn](https://ui.shadcn.com/) — UI primitives
-- ☁️ [Cloudflare Workers](https://workers.cloudflare.com/) — hosting
+| Area | Technology |
+| --- | --- |
+| Framework | TanStack Start, React 19, TypeScript |
+| Styling | Tailwind CSS v4, Shadcn |
+| Database | Drizzle ORM, Cloudflare D1 |
+| Hosting | Cloudflare Workers |
 
-## 🚀 Getting started
+## Getting started
 
 > Use **pnpm** to install or run the project.
 
@@ -35,7 +36,7 @@ pnpm dev
 
 The blog will be waddling at `http://localhost:3000`, seeded with a handful of demo posts.
 
-## 📜 Scripts
+## Scripts
 
 | Command           | What it does                               |
 | ----------------- | ------------------------------------------ |
@@ -47,6 +48,6 @@ The blog will be waddling at `http://localhost:3000`, seeded with a handful of d
 | `pnpm lint`       | Lint the code                              |
 | `pnpm typecheck`  | Type-check without emitting                |
 
-## 📄 License
+## License
 
-[MIT](./LICENSE) © RedDuck Limited
+[MIT](LICENSE) © RedDuck Limited
